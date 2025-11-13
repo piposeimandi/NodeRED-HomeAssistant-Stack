@@ -10,7 +10,13 @@ Configuración completa de Docker Compose para levantar Node-RED y Home Assistan
 
 ## Instrucciones de uso
 
-### 1. Iniciar los servicios
+### 1. Inicialización
+Ejecuta el script de inicialización para crear directorios y asignar permisos:
+```bash
+./init.sh
+```
+
+### 2. Iniciar los servicios
 ```bash
 docker-compose up -d
 ```
@@ -34,12 +40,14 @@ Dentro de Node-RED, ve a **Menu > Admin Panel > Security** para cambiar credenci
 .
 ├── docker-compose.yml           # Configuración de servicios
 ├── settings.js                  # Configuración de Node-RED con HTTPS y auth
-├── certs/                       # (se genera automáticamente)
+├── init.sh                      # Script de inicialización
+├── .gitignore                   # Archivos ignorados por Git
+├── certs/                       # (se crea con init.sh)
 │   ├── cert.pem
 │   └── key.pem
-├── node-red-data/               # (se genera automáticamente)
+├── node-red-data/               # (se crea con init.sh)
 │   └── flows.json
-└── home-assistant-config/       # (se genera automáticamente)
+└── home-assistant-config/       # (se crea con init.sh)
     ├── configuration.yaml
     └── home-assistant_v2.db
 ```
