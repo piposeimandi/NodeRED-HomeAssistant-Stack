@@ -34,13 +34,16 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
     restart: unless-stopped
+    user: "1000:1000"
     privileged: true
     environment:
       - TZ=America/Argentina/Buenos_Aires
     volumes:
       - ./home-assistant-config:/config
-      - /run/dbus:/run/dbus:ro
-    network_mode: host
+    ports:
+      - "8123:8123"
+    networks:
+      - node-red-net
 
 networks:
   node-red-net:

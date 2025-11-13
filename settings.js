@@ -1,5 +1,6 @@
 module.exports = {
     // Puerto HTTPS
+    uiPort: 1881,
     https: {
         key: require("fs").readFileSync("/certs/key.pem"),
         cert: require("fs").readFileSync("/certs/cert.pem")
