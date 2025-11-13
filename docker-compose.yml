@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  node-red:
+    image: nodered/node-red:latest
+    container_name: node-red-secure
+    restart: unless-stopped
+    user: "1000:1000"
+    ports:
+      - "1880:1880"
+      - "1881:1881"
+    environment:
+      - NODE_RED_ENABLE_SECURE_CLIENT_AUTH=true
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - ./node-red-data:/data
+      - ./certs:/certs:ro
+      - ./settings.js:/data/settings.js
+    networks:
+      - node-red-net
+    depends_on:
+      - cert-generator
+
+  # Servicio para generar certificados SSL autofirmados
+  cert-generator:
+    image: alpine:latest
+    container_name: cert-generator
+    volumes:
+      - ./certs:/certs
+    command: sh -c "if [ ! -f /certs/key.pem ]; then apk update && apk add --no-cache openssl && openssl req -x509 -newkey rsa:2048 -keyout /certs/key.pem -out /certs/cert.pem -days 365 -nodes -subj '/C=ES/ST=Madrid/L=Madrid/O=Test/CN=localhost' && chown 1000:1000 /certs/key.pem /certs/cert.pem && echo 'Certificados generados'; else echo 'Los certificados ya existen'; fi"
+
+  # Servicio Home Assistant
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    restart: unless-stopped
+    privileged: true
+    environment:
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - ./home-assistant-config:/config
+      - /run/dbus:/run/dbus:ro
+    network_mode: host
+
+networks:
+  node-red-net:
+    driver: bridge

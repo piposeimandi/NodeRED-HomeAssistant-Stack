@@ -1,0 +1,61 @@
+{
+  "id": "flujo-apis-ejemplo",
+  "label": "Ejemplos de Consultas a APIs",
+  "nodes": [
+    {
+      "id": "1",
+      "type": "http request",
+      "z": "flujo-apis-ejemplo",
+      "name": "GET JSONPlaceholder",
+      "method": "GET",
+      "ret": "txt",
+      "url": "https://jsonplaceholder.typicode.com/posts/1",
+      "tls": "",
+      "x": 450,
+      "y": 100,
+      "wires": [["2"]]
+    },
+    {
+      "id": "2",
+      "type": "debug",
+      "z": "flujo-apis-ejemplo",
+      "name": "Mostrar Respuesta",
+      "active": true,
+      "tosidebar": true,
+      "console": false,
+      "tostatus": false,
+      "complete": "payload",
+      "x": 700,
+      "y": 100,
+      "wires": []
+    },
+    {
+      "id": "3",
+      "type": "inject",
+      "z": "flujo-apis-ejemplo",
+      "name": "Ejecutar",
+      "props": [{"p": "payload"}],
+      "repeat": "",
+      "crontab": "",
+      "once": false,
+      "onceDelay": 0.1,
+      "topic": "",
+      "payload": "",
+      "payloadType": "date",
+      "x": 150,
+      "y": 100,
+      "wires": [["1"]]
+    },
+    {
+      "id": "4",
+      "type": "comment",
+      "z": "flujo-apis-ejemplo",
+      "name": "Este es un flujo de ejemplo para consultar APIs",
+      "info": "Reemplaza la URL con la que necesites\n\nEjemplos:\n- https://api.github.com/users/github\n- https://restcountries.com/v3.1/name/spain\n- https://jsonplaceholder.typicode.com/users",
+      "x": 450,
+      "y": 40,
+      "wires": []
+    }
+  ],
+  "flows": []
+}

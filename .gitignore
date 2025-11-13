@@ -1,0 +1,21 @@
+# Certificados SSL (generados automáticamente)
+*.pem
+certs/
+
+# Datos de Node-RED (persistentes pero no para versionar)
+node-red-data/
+
+# Configuración de Home Assistant (persistente pero no para versionar)
+home-assistant-config/
+
+# Archivos de logs
+*.log
+*.log.*
+
+# Base de datos de Home Assistant
+*.db
+*.db-*
+
+# Otros archivos temporales
+.DS_Store
+Thumbs.db
